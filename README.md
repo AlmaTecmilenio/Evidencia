@@ -1,5 +1,5 @@
 # Evidencia
-Instalación y configuración:
+Instalación/configuración/Uso del programa
 El programa se correra en cualquier IDE de java en forma consola.
 El programa tiene como objetivo el hacer las acciones de un sistema de citas:
 -Agregar paciente al sistema
