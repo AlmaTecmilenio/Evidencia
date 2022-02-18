@@ -1,3 +1,7 @@
+/*Autor: Alma Dimas Sanchez
+Materia: Computación en Java
+ */
+
 public class Paciente {
     private String pacienteID;
     private String nombre;

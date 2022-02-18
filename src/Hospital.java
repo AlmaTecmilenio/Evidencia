@@ -1,3 +1,7 @@
+/*Autor: Alma Dimas Sanchez
+Materia: Computación en Java
+ */
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;

@@ -1,3 +1,7 @@
+/*Autor: Alma Dimas Sanchez
+Materia: Computación en Java
+ */
+
 public class Cita {
     private String citaID;
     private String doctorID;

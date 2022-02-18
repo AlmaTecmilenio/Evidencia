@@ -1,3 +1,6 @@
+/*Autor: Alma Dimas Sanchez
+Materia: Computación en Java
+ */
 
 public class Doctor {
     private String doctorID;
