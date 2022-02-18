@@ -1,3 +1,4 @@
+
 public class Doctor {
     private String doctorID;
     private String nombre;
@@ -12,5 +13,9 @@ public class Doctor {
 
     public String getdoctorID() {
         return this.doctorID;
+    }
+
+    public String getContraseña() {
+        return contraseña;
     }
 }

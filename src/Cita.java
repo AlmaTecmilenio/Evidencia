@@ -17,4 +17,24 @@ public class Cita {
     public String getCitaID() {
         return this.citaID;
     }
+
+    public String getDoctorID() {
+        return doctorID;
+    }
+
+    public String getPacienteID() {
+        return pacienteID;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
 }

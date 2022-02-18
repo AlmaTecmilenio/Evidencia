@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -19,8 +20,8 @@ public class Hospital {
         especialidad = sc.nextLine();
         System.out.println("Cual es la contraseña de el o la doctor/a");
         contrasena = sc.nextLine();
-        doctores.put("d"+doctorId,new Doctor(nombre,especialidad,contrasena,"d"+doctorId));
-        System.out.println("Doctor agregado con ID: d"+doctorId);
+        doctores.put("doc"+doctorId,new Doctor(nombre,especialidad,contrasena,"doc"+doctorId));
+        System.out.println("Doctor agregado con ID: doc"+doctorId);
         doctorId++;
     }
 
@@ -29,8 +30,8 @@ public class Hospital {
         String nombre;
         System.out.println("Cual es el nombre completo de el o la paciente");
         nombre = sc.nextLine();
-        pacientes.put("d"+doctorId,new Paciente(nombre,"p"+pacienteID));
-        System.out.println("Paciente agregado con ID: d"+pacienteID);
+        pacientes.put("pac"+pacienteID,new Paciente(nombre,"pac"+pacienteID));
+        System.out.println("Paciente agregado con ID: pac"+pacienteID);
         pacienteID++;
     }
 
@@ -45,20 +46,32 @@ public class Hospital {
                 System.out.println("Cual es el ID del paciente para el que desea hacer la cita");
                 pID = sc.nextLine();
                 if (pacientes.containsKey(pID)) {
-                    System.out.println("Cual es la fecha de la cita: El formato de la cita debe ser DD/MM/AAAA");
+                    System.out.println("Cual es la fecha de la cita. El formato de la fecha debe ser DD/MM/AAAA");
                     fecha = sc.nextLine();
-                    System.out.println("Cual es el hora de la cita");
+                    System.out.println("Cual es el hora de la cita. El formato de la hora debe ser hh:mm");
                     hora = sc.nextLine();
                     System.out.println("Cual es el motivo de la cita");
                     motivo = sc.nextLine();
-                    citas.put("c" + citaID, new Cita(fecha, hora, motivo, "c" + citaID, dID, pID));
-                    System.out.println("Cita agregagada con ID: d" + citaID);
+                    citas.put("cita" + citaID, new Cita(fecha, hora, motivo, "cita" + citaID, dID, pID));
+                    System.out.println("Cita agregagada con ID: cita" + citaID);
                     citaID++;
                     agendando=false;
+                }else{
+                    System.out.println("El Id del paciente no existe, intentelo nuevamente");
                 }
             } else {
-                System.out.println("El Id del doctor no exise, intentelo nuevamente");
+                System.out.println("El Id del doctor no existe, intentelo nuevamente");
             }
+        }
+    }
+
+    public static void desplegarCitas(){
+        for(Map.Entry<String,Cita> item: citas.entrySet()){
+            System.out.println("ID de la cita:" + item.getKey());
+            System.out.println("ID del doctor:" + item.getValue().getDoctorID());
+            System.out.println("ID del paciente:" + item.getValue().getPacienteID());
+            System.out.println("Fecha: " + item.getValue().getFecha() + " Hora: " + item.getValue().getHora());
+            System.out.println("Motivo: " + item.getValue().getMotivo() + "\n");
         }
     }
 
@@ -72,13 +85,14 @@ public class Hospital {
         String opcion;
         boolean admin_user=false;
         boolean sesion_activa=true;
+        boolean salir=false;
 
 
         //cargar admin user
-        admins.put("a1","super_admin");
+        admins.put("admin1","superadmin1!");
 
 
-        while(true) {
+        while(!salir) {
             System.out.println("Bienvenido al sistema de citas");
             while (contrasenaInvalida) {
                 System.out.println("Por favor ingrese su ID de usuario:");
@@ -98,7 +112,7 @@ public class Hospital {
                     //checar password
                     System.out.println("Por favor ingrese su contraseña");
                     password = sc.nextLine();
-                    if (doctores.get(usuario).equals(password)) {
+                    if (doctores.get(usuario).getContraseña().equals(password)) {
                         contrasenaInvalida = false;
                     } else {
                         System.out.println("Contraseña incorrecta");
@@ -116,6 +130,7 @@ public class Hospital {
                     System.out.println("2   Agregar pacientes");
                     System.out.println("3   Desplegar citas");
                     System.out.println("4   Cerrar sesion");
+                    System.out.println("5   Salir del programa");
                     opcion = sc.nextLine();
                     if (opcion.equals("1")) {
                         //agrega doctor
@@ -128,12 +143,18 @@ public class Hospital {
                     } else if (opcion.equals("3")) {
                         // despliega citas
                         System.out.println("3   Desplegar citas");
+                        desplegarCitas();
                     } else if (opcion.equals("4")) {
                         // Cerrar sesion
+                        System.out.println("4   Cerrar sesion");
                         sesion_activa = false;
+                    } else if (opcion.equals("5")) {
+                        System.out.println("5   Salir del programa");
+                        sesion_activa = false;
+                        salir=true;
                     } else {
-                        // opcion invalida
-                        System.out.println("La opcion seleccionada no existe");
+                            // opcion invalida
+                            System.out.println("La opcion seleccionada no existe");
                     }
                 }
             } else {
@@ -141,10 +162,10 @@ public class Hospital {
                 while (sesion_activa) {
                     System.out.println("Escriba el numero de acuerdo al menu");
                     System.out.println("1   Agregar pacientes");
-                    agregarPaciente();
                     System.out.println("2   Crear una cita");
                     System.out.println("3   Desplegar citas");
                     System.out.println("4   Cerrar sesion");
+                    System.out.println("5   Salir del programa");
                     opcion = sc.nextLine();
                     if (opcion.equals("1")) {
                         //agrega pacientes
@@ -157,9 +178,15 @@ public class Hospital {
                     } else if (opcion.equals("3")) {
                         // despliega citas
                         System.out.println("3   Desplegar citas");
+                        desplegarCitas();
                     } else if (opcion.equals("4")) {
                         // Cerrar sesion
+                        System.out.println("4   Cerrar sesion");
                         sesion_activa = false;
+                    } else if (opcion.equals("5")) {
+                        System.out.println("5   Salir del programa");
+                        sesion_activa = false;
+                        salir=true;
                     } else {
                         // opcion invalida
                         System.out.println("La opcion seleccionada no existe");
